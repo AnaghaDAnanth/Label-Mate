@@ -7,9 +7,9 @@ const Labels = () => {
   const [error, setError] = useState(null);
   const [browserUrl, setBrowserUrl] = useState('');
 
-  const getLabels = useCallback(async () => {
+  const getLabels = useCallback(async (org, repo) => {
     try {
-      const data = await fetchLabels();
+      const data = await fetchLabels(org, repo);
       setLabels(data);
     } catch (err) {
       setError(err.message);
@@ -21,9 +21,16 @@ const Labels = () => {
     const getTabUrl = () => {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const tab = tabs[0];
-        if (tab && tab.url) {
+        if (tab && tab.url && tab.url.startsWith("https://github.com/") && tab.url.endsWith("/issues")) {
           setBrowserUrl(tab.url);
-          getLabels();
+          const urlParts = tab.url.split("/");
+          const org = urlParts[3];
+          const repo = urlParts[4];
+          
+          getLabels(org, repo);
+        }
+        else {
+          setError("Open a GitHub Issues link to activate me 😄");
         }
       });
     };
@@ -47,12 +54,12 @@ const Labels = () => {
 
   return (
     <div>
-      <h1> {browserUrl} </h1>
-      {error && <p>Error: {error}</p>}
+      {/* <h1> {browserUrl} </h1> */}
+      {error && <p>{error}</p>}
       <ul>
         {labels.map(label => (
           <li key={label.id}>
-            <span>
+            <span className='bg-amber-50 rounded-full text-xs'>
               {label.name}
             </span>
           </li>

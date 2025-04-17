@@ -1,9 +1,8 @@
-const urlFetchLabelsForRepo = 'https://api.github.com/repos/facebook/react/labels';
 const token = import.meta.env.VITE_GITHUB_PAT
 
-async function fetchLabels() {
+async function fetchLabels(org, repo) {
+    const urlFetchLabelsForRepo = import.meta.env.VITE_GITHUB_URL_BEG + org + "/" + repo + import.meta.env.VITE_GITHUB_URL_END;
     // Get API response
-    console.log("token" + token);
     const response = await fetch(urlFetchLabelsForRepo, {
         method: 'GET',
         headers: {
