@@ -1,15 +1,16 @@
-import { useState } from 'react'
 import './App.css'
 import Title from './components/Title.jsx'
-import Labels from './components/Labels.jsx'
+// import Labels from './components/Labels.jsx'
+// import LabelSelector from './components/LabelSelector';
+import LabelDropdown from './components/LabelDropdown';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <section className='p-3 h-80 w-80'>
+    <section className='p-3.5 h-80 w-80'>
       <Title/>
-      <Labels/>
+      <LabelDropdown/>
+      {/* <LabelSelector labels={allLabels} onSelectionChange={handleLabelSelection} />
+      <Labels/> */}
     </section>
   )
 }

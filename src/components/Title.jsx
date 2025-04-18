@@ -26,7 +26,7 @@ function Title() {
     >
       <div
         className={`
-          absolute top-0 left-0 flex items-center justify-center
+          absolute top-1 left-0 flex items-center justify-center
           border border-amber-300 bg-[#ffde59] font-medium text-sm
           transition-all duration-500 ease-in-out
           rounded-full whitespace-nowrap
